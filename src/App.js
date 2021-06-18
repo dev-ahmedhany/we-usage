@@ -27,7 +27,7 @@ function App() {
       <div className="App">
         <br />
         <Typography variant="h6" component="h1" style={{ textAlign: "center" }}>
-          Uptime Monitor <br /> made with 💖 by <a
+          We Usage Monitor <br /> made with 💖 by <a
             style={{ color: "inherit" }} href="https://github.com/dev-ahmedhany"
           >Ahmed Hany</a> <br />
           <br /> Powered By:
@@ -37,7 +37,7 @@ function App() {
         <MultiAxisLine />
         <br />
         <Button variant="contained" color="primary"
-          href="https://github.com/dev-ahmedhany/uptime"
+          href="https://github.com/dev-ahmedhany/we-usage"
           target="_blank" rel="noopener noreferrer">
           Github repo
         </Button>
