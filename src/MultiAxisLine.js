@@ -35,7 +35,7 @@ export default function Line() {
                     if (index !== 0) {
                         const start = new Date(lasttime * timeInterval);
                         const diff = Math.abs(new Date(time * timeInterval) - start);
-                        const primary = new Date(start + diff / 2).getTime();
+                        const primary = new Date(start.getTime() + diff / 2).getTime();
                         const minutes = Math.floor((diff / 1000 / 60));
                         const secondary = (subInfo[time] - subInfo[lasttime]) * 1000 / minutes;
                         finalResultSpeed[i].data.push({ primary, secondary })
