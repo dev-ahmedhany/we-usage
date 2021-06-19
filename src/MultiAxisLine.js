@@ -8,6 +8,7 @@ export default function Line() {
     const [isDataAvalible, setIsDataAvalible] = useState(false);
     const [dataSource, setDataSource] = useState();
     const [dataAvg, setDataAvg] = useState();
+    const [data, setData] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,9 +23,11 @@ export default function Line() {
 
     const getAvgFunction = useCallback((timeInterval, data) => {
         let lasttime = 0;
-        let finalResult = []
+        let finalResult = [];
+        let finalResultSpeed = [];
         Object.keys(data).forEach((number, i) => {
-            finalResult.push({ label: "mb/min", data: [] })
+            finalResultSpeed.push({ label: "mb/min", data: [] })
+            finalResult.push({ label: "hany", data: [] })
             Object.keys(data[number]).forEach((subscribtion) => {
                 const subInfo = data[number][subscribtion];
                 Object.keys(subInfo).forEach((time, index) => {
@@ -35,14 +38,16 @@ export default function Line() {
                         const primary = new Date(start + diff / 2).getTime();
                         const minutes = Math.floor((diff / 1000 / 60));
                         const secondary = (subInfo[time] - subInfo[lasttime]) * 1000 / minutes;
-                        finalResult[i].data.push({ primary, secondary })
+                        finalResultSpeed[i].data.push({ primary, secondary })
                     }
                     lasttime = time
+                    finalResult[i].data.push({ primary: time * timeInterval, secondary: subInfo[time] })
                 })
             })
         })
-        return finalResult;
-    }, []);
+        setData(finalResult)
+        return finalResultSpeed;
+    }, [setData]);
 
     useEffect(() => {
         if (!dataAvg) return;
@@ -65,8 +70,13 @@ export default function Line() {
             {isDataAvalible ?
                 <>
                     <br />
-                    <Resizable defaultSize={{ width: "90vw", height: "45vw", }}>
+                    <Resizable defaultSize={{ width: "85vw", height: "45vw", }}>
                         <Chart data={dataAvg} series={series} axes={axes} tooltip dark />
+                    </Resizable>
+                    <br />
+                    <br />
+                    <Resizable defaultSize={{ width: "85vw", height: "45vw", }}>
+                        <Chart data={data} series={series} axes={axes} tooltip dark />
                     </Resizable>
                     <br />
                 </> :
