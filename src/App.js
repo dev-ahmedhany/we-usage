@@ -27,7 +27,7 @@ function App() {
       <div className="App">
         <br />
         <Typography variant="h6" component="h1" style={{ textAlign: "center" }}>
-          We Usage Monitor <br /> made with 💖 by <a
+          internet Usage Monitor <br /> made with 💖 by <a
             style={{ color: "inherit" }} href="https://github.com/dev-ahmedhany"
           >Ahmed Hany</a> <br />
           <br /> Powered By:
