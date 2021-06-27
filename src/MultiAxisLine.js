@@ -28,22 +28,32 @@ export default function Line() {
         let lasttime = 0;
         let finalResultSpeed = [];
         Object.keys(data).forEach((number, i) => {
-            finalResultSpeed.push({ label: "MB/Min", data: [] })
+            finalResultSpeed.push({ label: "", data: [] })
+            let dayNum = 0;
             Object.keys(data[number]).forEach((subscribtion) => {
                 const subInfo = data[number][subscribtion];
                 Object.keys(subInfo).filter((value) => value * timeInterval > startDate).forEach((time, index) => {
-
+                    const current = new Date(time * timeInterval);
                     if (index !== 0) {
                         const start = new Date(lasttime * timeInterval);
-                        const diff = Math.abs(new Date(time * timeInterval) - start);
+                        const diff = Math.abs(current - start);
                         const minutes = Math.floor((diff / 1000 / 60));
                         const secondary = (subInfo[time] - subInfo[lasttime]) * 1000 / minutes;
 
                         // const timediff = new Date(start.getTime() + diff / 2)
                         // timediff.setSeconds(0)
                         // const primary = timediff.getTime();
-                        finalResultSpeed[i].data.push({ primary: start.getTime(), secondary })
-                        finalResultSpeed[i].data.push({ primary: (new Date(time * timeInterval)).getTime(), secondary })
+                        finalResultSpeed[dayNum].data.push({ primary: start.getTime(), secondary })
+                        finalResultSpeed[dayNum].data.push({ primary: current.getTime(), secondary })
+                        if (start.getDay() !== current.getDay()) {
+                            finalResultSpeed.push({ label: "", data: [] })
+                            dayNum++
+                            finalResultSpeed[dayNum].label = (current.getUTCDate() + 1).toString()
+                            finalResultSpeed[dayNum].data.push({ primary: start.getTime(), secondary })
+                            finalResultSpeed[dayNum].data.push({ primary: current.getTime(), secondary })
+                        }
+                    } else {
+                        finalResultSpeed[dayNum].label = (current.getUTCDate()).toString()
                     }
                     lasttime = time
                 })
