@@ -11,7 +11,7 @@ export default function Line() {
     const [dataAvg, setDataAvg] = useState();
     const [data, setData] = useState();
     const [startDate, setStartDate] = React.useState();
-    const [days, setDays] = React.useState(1);
+    const [days, setDays] = React.useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -109,10 +109,10 @@ export default function Line() {
             {isDataAvalible ?
                 <>
                     <p>Show data from Last </p>
-                    <Slider min={1} max={84} value={days} onChange={handleChange}
+                    <Slider min={0} max={30} value={days} onChange={handleChange}
                         style={{ width: "50vw" }} valueLabelDisplay="auto"
-                        marks={[{ value: 1, label: 'day', }, { value: 7, label: 'week', },
-                        { value: 28, label: 'month', }, { value: 84, label: '3 month', }]} aria-labelledby="continuous-slider" />
+                        marks={[{ value: 0, label: 'today' }, { value: 7, label: 'week ago' },
+                        { value: 30, label: 'month' }]} aria-labelledby="continuous-slider" />
                     <br />
                     <br />
                     <Resizable defaultSize={{ width: "85vw", height: "45vw", }}>
