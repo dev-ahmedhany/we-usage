@@ -71,7 +71,7 @@ export default function Line() {
                 finalResult.push({ label: 'start date ' + subscribtion, data: [] })
                 const subInfo = data[number][subscribtion];
                 Object.keys(subInfo).forEach((time) => {
-                    finalResult[j].data.push({ primary: time * timeinterval, secondary: subInfo[time] })
+                    finalResult[j].data.push({ primary: time * timeinterval, secondary: subInfo[time] ? subInfo[time] : 0.01 })
                 })
             })
         })
